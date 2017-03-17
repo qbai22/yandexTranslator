@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+    defaultConfig {
+        applicationId "qbai22.com.yandextranslator"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        buildConfigField "String", "TRANSLATOR_API_KEY", '"trnsl.1.1.20170315T135217Z.ea48e6d5dfd7f121.89fbb34a693e7c98840c970cb59b33b12a834454"'
+        buildConfigField "String", "TRANSLATOR_API_ENDPOINT", '"https://translate.yandex.net/api/v1.5/tr.json/"'
+        buildConfigField "String", "DICTIONARY_API_KEY", '"dict.1.1.20170315T140106Z.2f0b374ebabb351f.367d00bb6106af3ef7661132195e8fd25bdb78a0"'
+        buildConfigField "String", "DICTIONARY_API_ENDPOINT", '"https://dictionary.yandex.net/api/v1/dicservice.json/"'
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:support-vector-drawable:25.2.0'
+    testCompile 'junit:junit:4.12'
+    //realm
+    compile 'io.realm:android-adapters:1.4.0'
+    //butterknife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    //customViews
+    compile 'com.github.varunest:sparkbutton:1.0.4'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    //Gson
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    //googleVision
+    compile 'com.google.android.gms:play-services-vision:10.2.0'
+
+}

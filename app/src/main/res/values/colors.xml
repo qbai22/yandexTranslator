@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffd54f</color>
+    <color name="colorPrimaryDark">#ffd54f</color>
+    <color name="colorAccent">#000</color>
+    <color name="yandexIconGray">#858e98</color>
+    <color name="yandexIconYellow">#fdcd01</color>
+    <color name="sparkingOrange">#e65100</color>
+    <color name="yandexTextGray">#7f7f80</color>
+    <color name="niceGreen">#4ba40c</color>
+</resources>
