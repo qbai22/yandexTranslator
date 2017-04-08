@@ -8,4 +8,8 @@
     <color name="sparkingOrange">#e65100</color>
     <color name="yandexTextGray">#7f7f80</color>
     <color name="niceGreen">#4ba40c</color>
+    <color name="yandexPOScolor">#a37b92</color>
+    <color name="dictDarkBlue">#78909c</color>
+    <color name="dictLightBlue">#b0bec5</color>
+    <color name="dictBrown">#896350</color>
 </resources>

@@ -14,12 +14,22 @@ public class DictionaryTranslation {
     @SerializedName("pos")
     String partOfSpeach;
     String asp;
+    @SerializedName("gen")
+    String gender;
     @SerializedName("syn")
     List<Synonym> synonyms = new ArrayList<>();
     @SerializedName("mean")
     List<Meaning> meanings = new ArrayList<>();
     @SerializedName("ex")
     List<Example> examples = new ArrayList<>();
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public String getText() {
         return text;

@@ -18,8 +18,10 @@ import com.varunest.sparkbutton.SparkButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
+import qbai22.com.yandextranslator.utils.RealmTranslationUtils;
 import qbai22.com.yandextranslator.model.realm.Translation;
 
 /**
@@ -30,7 +32,14 @@ public class BookmarkFragment extends Fragment {
     @BindView(R.id.bookmark_recycler_view)
     RecyclerView mBookmarksRecyclerView;
 
+    Realm mRealm;
     BookmarkRecyclerAdapter mAdapter;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRealm.close();
+    }
 
     @Nullable
     @Override
@@ -38,9 +47,11 @@ public class BookmarkFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_bookmark, container, false);
         ButterKnife.bind(this, v);
 
-        RealmResults<Translation> data = RealmTranslationUtils.getAllTranslations();
+        mRealm = Realm.getDefaultInstance();
 
-        mAdapter = new BookmarkRecyclerAdapter(getActivity(), data, true);
+        RealmResults<Translation> bookmarks = mRealm.where(Translation.class).equalTo("isBookmarked", true).findAll();
+
+        mAdapter = new BookmarkRecyclerAdapter(getActivity(), bookmarks, true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         DividerItemDecoration dID = new DividerItemDecoration(getActivity(), layoutManager.getOrientation());
@@ -74,7 +85,6 @@ public class BookmarkFragment extends Fragment {
             Translation translation = getItem(position);
             assert translation != null;
 
-            holder.bookmarkButton.setChecked(translation.isBookmarked());
             holder.inputText.setText(translation.getInputText());
             holder.translatedText.setText(translation.getTranslatedText());
             String fromLangCode = translation.getFromLangCode().toUpperCase();

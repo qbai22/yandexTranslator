@@ -5,119 +5,245 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@android:color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:orientation="vertical"
     android:padding="8dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/from_lang_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Английский"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <ImageView
-            android:id="@+id/language_swap_image_view"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_swap"/>
-
-        <TextView
-            android:id="@+id/to_lang_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Русский"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/translation_window"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rectangle_form"
-        android:hint="@string/translation_window_hint"
-        android:maxLines="5"/>
-
-    <TextView
-        android:id="@+id/translation_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        tools:text="Перевод"/>
-
-
-
-    <ScrollView
 
         android:layout_width="match_parent"
-        android:layout_height="120dp">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/from_lang_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="27dp"
+                android:layout_marginStart="27dp"
+                android:text="Английский"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                tools:text="transcriprion"
-                android:id="@+id/transcription_text_view"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/language_swap_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_swap"/>
+
+            <TextView
+                android:id="@+id/to_lang_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="27dp"
+                android:text="Русский"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/rectangle_form"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/translation_window"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/camera_image_view"
+                android:layout_toStartOf="@+id/camera_image_view"
+                android:background="#FFF"
+                android:gravity="start"
+                android:hint="@string/translation_window_hint"/>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/camera_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/ic_camera_alt_black_24dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/translation_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                tools:text="Башня"/>
+
+            <com.varunest.sparkbutton.SparkButton
+                android:id="@+id/translation_fragment_bkmrk_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:visibility="invisible"
+                app:sparkbutton_activeImage="@drawable/ic_yellow_star_24dp"
+                app:sparkbutton_iconSize="40dp"
+                app:sparkbutton_inActiveImage="@drawable/ic_grey_star_24dp"
+                app:sparkbutton_primaryColor="@android:color/white"
+                app:sparkbutton_secondaryColor="@android:color/white"/>
+
+        </RelativeLayout>
 
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:scrollHorizontally="false">
 
-    <Button
-        android:id="@+id/translation_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Перевести"/>
+            <LinearLayout
+                android:id="@+id/scroll_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="vertical">
 
-    <Button
-        android:id="@+id/detect_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="detect"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <com.varunest.sparkbutton.SparkButton
-        android:id="@+id/translation_fragment_bkmrk_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:sparkbutton_activeImage="@drawable/ic_yellow_star_24dp"
-        app:sparkbutton_iconSize="40dp"
-        app:sparkbutton_inActiveImage="@drawable/ic_grey_star_24dp"
-        app:sparkbutton_primaryColor="@color/yandexIconYellow"
-        app:sparkbutton_secondaryColor="@color/colorAccent"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="1"
+                        android:textSize="12sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                    <com.wefika.flowlayout.FlowLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/camera_image_view"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Булочка"/>
+                    </com.wefika.flowlayout.FlowLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/translation_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_camera_alt_black_24dp"/>
+            android:text="Перевести"/>
 
-        <ImageView
-            android:id="@+id/camera_output"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/colorAccent"/>
 
     </LinearLayout>
-
 
 </LinearLayout>

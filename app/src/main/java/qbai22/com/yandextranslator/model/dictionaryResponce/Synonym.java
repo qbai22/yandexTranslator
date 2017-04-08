@@ -1,5 +1,7 @@
 package qbai22.com.yandextranslator.model.dictionaryResponce;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by qbai on 17.03.2017.
  */
@@ -8,6 +10,16 @@ public class Synonym {
     String text;
     String pos;
     String asp;
+    @SerializedName("gen")
+    String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public String getText() {
         return text;

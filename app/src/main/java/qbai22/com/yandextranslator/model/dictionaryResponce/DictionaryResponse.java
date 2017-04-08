@@ -7,7 +7,7 @@ import java.util.List;
  * Created by qbai on 17.03.2017.
  */
 
-public class DictionaryResponce {
+public class DictionaryResponse {
     Head head;
     List<PartOfSpeach> def = new ArrayList<>();
 

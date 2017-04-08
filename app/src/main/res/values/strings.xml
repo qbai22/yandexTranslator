@@ -9,4 +9,5 @@
     <string name="translation_window_hint">Введите текст здесь...</string>
     <string name="too_long_text_toast_message">Текст слишком длинный</string>
     <string name="lang_pick_activity_lable">Выбор языка</string>
+    <string name="length_test">now i want to wrap text to next line any one guide me what is the solution?</string>
 </resources>

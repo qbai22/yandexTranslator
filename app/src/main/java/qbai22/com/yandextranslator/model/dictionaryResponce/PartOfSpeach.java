@@ -12,7 +12,7 @@ import java.util.List;
 public class PartOfSpeach {
     String text;
     @SerializedName("pos")
-    String partOfSpeach;
+    String partOfSpeech;
     @SerializedName("ts")
     String transcription;
     @SerializedName("tr")
@@ -22,12 +22,12 @@ public class PartOfSpeach {
         return text;
     }
 
-    public String getPartOfSpeach() {
-        return partOfSpeach;
+    public String getPartOfSpeech() {
+        return partOfSpeech;
     }
 
-    public void setPartOfSpeach(String partOfSpeach) {
-        this.partOfSpeach = partOfSpeach;
+    public void setPartOfSpeech(String partOfSpeech) {
+        this.partOfSpeech = partOfSpeech;
     }
 
     public String getTranscription() {
