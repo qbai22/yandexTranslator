@@ -10,4 +10,9 @@
     <string name="too_long_text_toast_message">Текст слишком длинный</string>
     <string name="lang_pick_activity_lable">Выбор языка</string>
     <string name="length_test">now i want to wrap text to next line any one guide me what is the solution?</string>
+    <string name="photo_error_toast_text">Фотография не была сделана</string>
+    <string name="search_hint">Поиск в истории...</string>
+    <string name="enter_lang_name_hint">Введите название языка...</string>
+    <string name="picker_activity_toolbar_header">Выберите язык</string>
+    <string name="network_unavailable_toast">Отсутствует подключение к сети</string>
 </resources>

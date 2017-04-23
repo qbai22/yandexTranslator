@@ -3,10 +3,6 @@ package qbai22.com.yandextranslator.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by qbai on 16.03.2017.
- */
-
 public class Language {
 
     String name;
@@ -17,9 +13,15 @@ public class Language {
         code = c;
     }
 
+    //метод понадобился потому что языки копировал из документации словаря
+    //а они там с маленькой буквы -_-
+    public Language capitalizeLabel(){
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
+        return this;
+    }
+
     public static List<Language> getAllLanguages() {
         List<Language> result = new ArrayList<>();
-        result.add(new Language("определить автоматически", "auto"));
         result.add(new Language("азербайджанский", "az"));
         result.add(new Language("албанский", "sq"));
         result.add(new Language("амхарский", "am"));

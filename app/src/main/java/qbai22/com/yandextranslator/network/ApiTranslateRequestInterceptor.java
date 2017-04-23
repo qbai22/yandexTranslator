@@ -21,7 +21,7 @@ public class ApiTranslateRequestInterceptor implements Interceptor {
                 .addQueryParameter("key", BuildConfig.TRANSLATOR_API_KEY)
                 .addQueryParameter("format", "plain")
                 .build();
-        Log.e(TAG, "after added queries: " + url.toString() );
+
         request = request.newBuilder().url(url).build();
 
         return chain.proceed(request);

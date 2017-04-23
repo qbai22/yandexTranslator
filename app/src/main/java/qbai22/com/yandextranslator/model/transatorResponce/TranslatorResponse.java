@@ -7,7 +7,7 @@ import java.util.List;
  * Created by qbai on 15.03.2017.
  */
 
-public class YandexResponce {
+public class TranslatorResponse {
     int code;
     String lang;
     List<String> text = new ArrayList<>();

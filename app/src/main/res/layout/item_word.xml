@@ -16,8 +16,8 @@
         app:sparkbutton_activeImage="@drawable/ic_yellow_star_24dp"
         app:sparkbutton_iconSize="30dp"
         app:sparkbutton_inActiveImage="@drawable/ic_grey_star_24dp"
-        app:sparkbutton_primaryColor="@color/yandexIconYellow"
-        app:sparkbutton_secondaryColor="@color/sparkingOrange"/>
+        app:sparkbutton_primaryColor="@android:color/white"
+        app:sparkbutton_secondaryColor="@android:color/white"/>
 
     <LinearLayout
         android:layout_width="0dp"

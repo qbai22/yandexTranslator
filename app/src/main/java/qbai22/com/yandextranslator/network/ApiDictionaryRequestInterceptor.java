@@ -22,9 +22,9 @@ public class ApiDictionaryRequestInterceptor implements Interceptor {
 
         HttpUrl url = request.url().newBuilder()
                 .addQueryParameter("key", BuildConfig.DICTIONARY_API_KEY)
+                .addQueryParameter("ui", "ru")
                 .build();
 
-        Log.e(TAG, "after added queries: " + url.toString() );
         request = request.newBuilder().url(url).build();
 
         return chain.proceed(request);

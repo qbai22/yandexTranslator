@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import qbai22.com.yandextranslator.fragments.bookmarks.BookmarkFragment;
+import qbai22.com.yandextranslator.fragments.history.HistoryFragment;
+import qbai22.com.yandextranslator.fragments.translation.TranslationFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class ContainerActivity extends AppCompatActivity {
     @BindView(R.id.main_viewpager)
     ViewPager mViewPager;
     @BindView(R.id.main_tab_layout)
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_container);
         ButterKnife.bind(this);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

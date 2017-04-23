@@ -10,12 +10,13 @@ import io.realm.annotations.PrimaryKey;
 public class Translation extends RealmObject {
 
     @PrimaryKey
-    String id;
+    private String id;
     private boolean isBookmarked;
     private String inputText;
     private String translatedText;
     private String fromLangCode;
     private String toLangCode;
+
 
     public String getId() {
         return id;
