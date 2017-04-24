@@ -5,8 +5,8 @@ Yandex Academy project
 Умеет распознавать текст со снимков камеры используя google vision
 
 Использованные технологии:
-1) Хранение данных - Realm
-2) View injection - Butterknife
+1) Realm - Хранение данных
+2) Butterknife - View injection
 3) Loaders + retrofit - загрузка данных
 4) Google mobile vision - распознание текста на снимках
 5) SparkButton + FlowLayout - custom views
