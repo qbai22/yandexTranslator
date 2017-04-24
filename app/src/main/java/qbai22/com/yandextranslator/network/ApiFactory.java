@@ -6,6 +6,10 @@ import qbai22.com.yandextranslator.BuildConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+ * Created by Vladimir Kraev
+ */
+
 public class ApiFactory {
 
     private static OkHttpClient sTranslationClient;

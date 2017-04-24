@@ -30,12 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import qbai22.com.yandextranslator.model.Language;
 
-/**
- * Created by qbai on 15.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class LanguagePickerActivity extends AppCompatActivity {
-    // TODO: 20.04.2017  добавить тулбар со стрелкой назад
 
     public static final String LANGUAGE_CODE = "code";
     public static final String LANGUAGE_LABLE = "label";
@@ -48,7 +47,6 @@ public class LanguagePickerActivity extends AppCompatActivity {
 
     List<Language> mLanguageList;
     LanguageRecyclerAdapter mAdapter;
-    LanguageRecyclerAdapter.LanguageFilter mLanguageFilter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class LanguagePickerActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         DividerItemDecoration dID = new DividerItemDecoration(this, layoutManager.getOrientation());
-        mLanguageList = Language.getAllLanguages();
+        mLanguageList = Language.getAllLanguages(this);
         mAdapter = new LanguageRecyclerAdapter(mLanguageList);
 
         mAllLangRecyclerView.setLayoutManager(layoutManager);

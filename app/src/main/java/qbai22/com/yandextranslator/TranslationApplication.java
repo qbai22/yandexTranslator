@@ -5,6 +5,10 @@ import android.app.Application;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+/*
+ * Created by Vladimir Kraev
+ */
+
 public class TranslationApplication extends Application {
 
     @Override
@@ -14,7 +18,7 @@ public class TranslationApplication extends Application {
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                 .name(Realm.DEFAULT_REALM_NAME)
-                .schemaVersion(1)
+                .schemaVersion(0)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);

@@ -12,6 +12,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/*
+ * Created by Vladimir Kraev
+ */
 
 //Лоадер для загрузки перевода через API ЯндексПереводчика
 public class RetrofitTranslatorLoader extends Loader<TranslatorResponse> {

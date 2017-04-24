@@ -12,6 +12,10 @@ import qbai22.com.yandextranslator.fragments.bookmarks.BookmarkFragment;
 import qbai22.com.yandextranslator.fragments.history.HistoryFragment;
 import qbai22.com.yandextranslator.fragments.translation.TranslationFragment;
 
+/*
+ * Created by Vladimir Kraev
+ */
+
 public class ContainerActivity extends AppCompatActivity {
     @BindView(R.id.main_viewpager)
     ViewPager mViewPager;

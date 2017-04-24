@@ -10,7 +10,10 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -73,10 +75,10 @@
                 android:padding="8dp">
 
                 <EditText
-                    android:layout_above="@+id/clear_image_view"
                     android:id="@+id/translation_window"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_above="@+id/clear_image_view"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
@@ -84,7 +86,9 @@
                     android:layout_toStartOf="@+id/camera_image_view"
                     android:background="#FFF"
                     android:gravity="start"
-                    android:hint="@string/translation_window_hint"/>
+                    android:hint="@string/translation_window_hint"
+                    android:imeOptions="flagNoExtractUi"/>
+
                 <ImageView
                     android:id="@+id/camera_image_view"
                     android:layout_width="wrap_content"
@@ -119,14 +123,19 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/translation_text_view"
+                    <ScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="20sp"
-                        tools:text="Башня"/>
+                        android:layout_weight="3">
+
+                        <TextView
+                            android:id="@+id/translation_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="20sp"
+                            tools:text="Башня"/>
+                    </ScrollView>
 
                     <com.varunest.sparkbutton.SparkButton
                         android:id="@+id/translation_fragment_bkmrk_button"
@@ -144,9 +153,8 @@
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="192dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
-                    android:layout_weight="0.06"
                     android:scrollHorizontally="false">
 
                     <LinearLayout

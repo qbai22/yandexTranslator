@@ -14,11 +14,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import qbai22.com.yandextranslator.R;
+import qbai22.com.yandextranslator.fragments.WordRecyclerAdapter;
 import qbai22.com.yandextranslator.model.realm.Translation;
 
-/**
- * Created by qbai on 15.03.2017.
+
+/*
+ * Created by Vladimir Kraev
  */
 
 public class BookmarkFragment extends Fragment {
@@ -27,8 +30,8 @@ public class BookmarkFragment extends Fragment {
     RecyclerView mBookmarksRecyclerView;
 
     private Realm mRealm;
-    private BookmarksRecyclerAdapter mAdapter;
-
+    private WordRecyclerAdapter mAdapter;
+    private RealmResults<Translation> mBookmarks;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,11 +43,10 @@ public class BookmarkFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_bookmark, container, false);
-
         ButterKnife.bind(this, v);
-        RealmResults<Translation> bookmarks = mRealm.where(Translation.class).equalTo("isBookmarked", true).findAll();
 
-        mAdapter = new BookmarksRecyclerAdapter(getActivity(), bookmarks, true, mRealm);
+        mBookmarks = mRealm.where(Translation.class).equalTo("isBookmarked", true).findAllSorted("date", Sort.DESCENDING);
+        mAdapter = new WordRecyclerAdapter(getActivity(), mBookmarks, true, mRealm);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         DividerItemDecoration dID = new DividerItemDecoration(getActivity(), layoutManager.getOrientation());

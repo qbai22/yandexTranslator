@@ -11,9 +11,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by qbai on 09.04.2017.
+/*
+ * Created by Vladimir Kraev
  */
+
 //Лоадер для загрузки вариантов перевода через API ЯндексСловаря
 public class RetrofitDictionaryLoader extends Loader<DictionaryResponse> {
 

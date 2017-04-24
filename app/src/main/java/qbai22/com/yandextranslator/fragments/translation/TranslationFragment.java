@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,6 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.varunest.sparkbutton.SparkButton;
-import com.varunest.sparkbutton.SparkEventListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,8 +60,8 @@ import qbai22.com.yandextranslator.utils.TranslationPreferencesUtils;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * Created by qbai on 15.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 
@@ -73,7 +73,6 @@ public class TranslationFragment extends Fragment {
     public final static int LANGUAGE_TO_PICK_REQUEST_CODE = 22;
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static int REQUEST_CAMERA_PERMISSION = 888;
-
 
     @BindView(R.id.translation_window)
     EditText mEditText;
@@ -93,11 +92,14 @@ public class TranslationFragment extends Fragment {
     ImageView mClearImageView;
     @BindView(R.id.scroll_linear)
     LinearLayout mScrollLinearLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
 
 
     String mCurrentPhotoPath;
     Bitmap currentBitmap;
 
+    private boolean mIsBookmarked;
     private String mCurrentText;
     private String mTranslatedText;
     private String mFromLangCode;
@@ -115,7 +117,6 @@ public class TranslationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume: called");
         refreshBookmarkButtonState();
         if (currentBitmap != null) {
             String text = detectText(currentBitmap);
@@ -138,12 +139,11 @@ public class TranslationFragment extends Fragment {
             Handler handler = new Handler();
             Runnable delayedAction;
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length() == 0){
+                if (s.toString().length() == 0) {
                     mScrollLinearLayout.removeAllViews();
                     mTranslationTextView.setText("");
                     mBookmarkButton.setVisibility(View.INVISIBLE);
@@ -154,7 +154,7 @@ public class TranslationFragment extends Fragment {
             @Override
             public void afterTextChanged(final Editable s) {
 
-                mCurrentText = s.toString().trim();
+                mCurrentText = s.toString().trim().toLowerCase();
                 //обновляем значение текущего текста для лоадера
                 TranslationPreferencesUtils.setCurrentText(getActivity(), mCurrentText);
 
@@ -206,20 +206,17 @@ public class TranslationFragment extends Fragment {
             }
         });
 
-        mBookmarkButton.setEventListener(new SparkEventListener() {
+        mBookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onEvent(ImageView button, boolean buttonState) {
-                if (buttonState) {
-                    RealmTranslationHelper
-                            .changeBookmarkStatus(mRealm, true, mCurrentText, mTranslatedText);
-                } else {
+            public void onClick(View v) {
+                if (mIsBookmarked) {
                     RealmTranslationHelper
                             .changeBookmarkStatus(mRealm, false, mCurrentText, mTranslatedText);
-
+                } else {
+                    RealmTranslationHelper
+                            .changeBookmarkStatus(mRealm, true, mCurrentText, mTranslatedText);
                 }
             }
-            public void onEventAnimationEnd(ImageView button, boolean buttonState) {}
-            public void onEventAnimationStart(ImageView button, boolean buttonState) {}
         });
 
         mClearImageView.setOnClickListener(new View.OnClickListener() {
@@ -232,8 +229,9 @@ public class TranslationFragment extends Fragment {
         mBookmarkButton.setEnabled(false);
         makeTranslation(false);
 
+        //листенер для обновления состояния кнопки в зависимости от избранного
         mTranslation = RealmTranslationHelper.getCurrentTranslation(mRealm, getActivity());
-        if(mTranslation != null){
+        if (mTranslation != null) {
             mTranslation.addChangeListener(new RealmChangeListener<RealmModel>() {
                 @Override
                 public void onChange(RealmModel element) {
@@ -252,7 +250,7 @@ public class TranslationFragment extends Fragment {
             mRealm.close();
             mRealm = null;
         }
-        if(mTranslation != null){
+        if (mTranslation != null) {
             mTranslation.removeChangeListeners();
         }
     }
@@ -386,15 +384,22 @@ public class TranslationFragment extends Fragment {
 
         TranslationPreferencesUtils.setFromLanguage(getActivity(), toBtnText, toCode);
         TranslationPreferencesUtils.setToLanguage(getActivity(), fromBtnText, fromCode);
+        TranslationPreferencesUtils.updateLanguagePairCodes(getActivity());
+
+        //если перевод уже был сделан то повторяем его в обратном направлении
+        if ((mCurrentText != null && mCurrentText.length() > 0)
+                && mTranslatedText != null && mTranslatedText.length() > 0) {
+            mEditText.setText(mTranslatedText);
+        }
 
         makeTranslation(true);
     }
 
 
     //распознание текста со снимка камеры на основе Google Vision API
+    //не распознает кириллицу :(
     public String detectText(Bitmap bitmap) {
         //включаем автораспознавание языка
-        mFromLangCode = "auto";
         String result = "";
         TextRecognizer textRecognizer = new TextRecognizer.Builder(getActivity()).build();
         if (!textRecognizer.isOperational()) {
@@ -411,6 +416,9 @@ public class TranslationFragment extends Fragment {
             if (item != null && item.getValue() != null) {
                 result += item.getValue();
             }
+        }
+        if (result.equals("")) {
+            Toast.makeText(getActivity(), R.string.undetected_text_toast, Toast.LENGTH_SHORT).show();
         }
         return result;
     }
@@ -434,6 +442,7 @@ public class TranslationFragment extends Fragment {
         boolean isTranslationBookmarked = RealmTranslationHelper
                 .isTranslationBookmarked(mRealm, mCurrentText, mTranslatedText);
         mBookmarkButton.setChecked(isTranslationBookmarked);
+        mIsBookmarked = isTranslationBookmarked;
     }
 
     private void makeTranslation(boolean restart) {
@@ -442,7 +451,7 @@ public class TranslationFragment extends Fragment {
             return;
         }
 
-        if(mCurrentText!= null && mCurrentText.length() == 0){
+        if (mCurrentText != null && mCurrentText.length() == 0) {
             return;
         }
 
@@ -457,6 +466,7 @@ public class TranslationFragment extends Fragment {
                 Toast.makeText(getActivity(), R.string.network_unavailable_toast, Toast.LENGTH_SHORT).show();
                 return;
             }
+            mProgressBar.setVisibility(ProgressBar.VISIBLE);
             getLoaderManager().restartLoader(R.id.translator_loader_id, Bundle.EMPTY, translatorLoaderCallbacks);
             getLoaderManager().restartLoader(R.id.dictionary_loader_id, Bundle.EMPTY, dictionaryResponseLoaderCallbacks);
         } else {
@@ -483,10 +493,11 @@ public class TranslationFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<TranslatorResponse> loader, TranslatorResponse data) {
+            mProgressBar.setVisibility(View.GONE);
             TranslationPreferencesUtils.setCurrentText(getActivity(), mCurrentText);
             if (data == null) return;
 
-            mTranslatedText = data.getText().get(0);
+            mTranslatedText = data.getText().get(0).toLowerCase();
             mTranslationTextView.setText(mTranslatedText);
             enableBookmark();
             //проверяем наличие аналогичной записи в базе
@@ -501,7 +512,7 @@ public class TranslationFragment extends Fragment {
                     mToLangCode);
             //сохраняем id последнего перевода для того чтобы обращаться к нему
             //и крепить на него листенеры при смене ориентации
-            TranslationPreferencesUtils.setCurrentTranslationId(getActivity(),mTranslation.getId());
+            TranslationPreferencesUtils.setCurrentTranslationId(getActivity(), mTranslation.getId());
             //листенер проверяет нахождение перевода в избранном
             //перевод можно добавить в избарнное из других фрагментов
             mTranslation.addChangeListener(new RealmChangeListener<RealmModel>() {
@@ -514,7 +525,6 @@ public class TranslationFragment extends Fragment {
 
         @Override
         public void onLoaderReset(Loader<TranslatorResponse> loader) {
-
         }
     }
 

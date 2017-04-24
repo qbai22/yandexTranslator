@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by qbai on 17.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class DictionaryTranslation {

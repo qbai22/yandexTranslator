@@ -2,8 +2,8 @@ package qbai22.com.yandextranslator.model.dictionaryResponce;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by qbai on 17.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class Synonym {

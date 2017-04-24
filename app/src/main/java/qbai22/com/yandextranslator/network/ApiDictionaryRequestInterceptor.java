@@ -10,8 +10,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import qbai22.com.yandextranslator.BuildConfig;
 
-/**
- * Created by qbai on 17.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class ApiDictionaryRequestInterceptor implements Interceptor {

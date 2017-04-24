@@ -3,18 +3,20 @@ package qbai22.com.yandextranslator.utils;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.Date;
 import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import qbai22.com.yandextranslator.model.realm.Translation;
 
-/**
- * Created by qbai on 15.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class RealmTranslationHelper {
 
+    private static final String TAG = "translation helper";
 
     public static void changeBookmarkStatus(Realm realm, Boolean isBookmarked, String input, String output) {
         realm.beginTransaction();
@@ -50,15 +52,19 @@ public class RealmTranslationHelper {
             final String fromLang,
             final String toLang) {
 
+        Date date = new Date();
+        long dateStamp = date.getTime();
         realm.beginTransaction();
         String id = UUID.randomUUID().toString();
         Translation translation = realm.createObject(Translation.class, id);
+        translation.setDate(dateStamp);
         translation.setBookmarked(false);
-        translation.setInputText(inputText);
-        translation.setTranslatedText(translatedText);
+        translation.setInputText(inputText.toLowerCase());
+        translation.setTranslatedText(translatedText.toLowerCase());
         translation.setFromLangCode(fromLang);
         translation.setToLangCode(toLang);
         realm.commitTransaction();
+
         return translation;
     }
 
@@ -66,9 +72,10 @@ public class RealmTranslationHelper {
         //запрещаем записывать пустые переводы
         if (input == null || input.equals("")) return true;
         Translation translation = realm.where(Translation.class)
-                .equalTo("inputText", input)
-                .equalTo("translatedText", output)
+                .equalTo("inputText", input.toLowerCase())
+                .equalTo("translatedText", output.toLowerCase())
                 .findFirst();
+        Log.e(TAG, "checkIfExists: " + input + "  " + output + "  " + (translation!=null) );
         return translation != null;
     }
 

@@ -3,8 +3,8 @@ package qbai22.com.yandextranslator.model.dictionaryResponce;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by qbai on 17.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class DictionaryResponse {

@@ -19,6 +19,17 @@ import qbai22.com.yandextranslator.model.dictionaryResponce.Example;
 import qbai22.com.yandextranslator.model.dictionaryResponce.Meaning;
 import qbai22.com.yandextranslator.model.dictionaryResponce.Synonym;
 
+/*
+ * Created by Vladimir Kraev
+ */
+
+    /*
+    Магический класс динамической генерации View элементов
+    на основании DictionaryResponse
+    ушло некоторое время понять как работает FlowLayout, но вам я скажу сразу -
+    чтобы применить LayoutParams их нужно добавлять к каждому чаилд вью
+    в методе addView и никак иначе!
+     */
 
 public class DictionaryViewGenerator {
 
@@ -26,13 +37,6 @@ public class DictionaryViewGenerator {
     private static final int MEDIUM_FONT_SIZE = 16;
     private static final int SMALL_FONT_SIZE = 12;
 
-    /*
-    магический класс динамической генерации View элементов
-    на основании DictionaryResponse (немного поседел пока его писал *_*)
-    ушло некоторое время понять как работает FlowLayout вам я скажу сразу -
-    чтобы применить LayoutParams их нужно добавлять к каждому чаилд вью
-    в методе addView и никак иначе!
-     */
 
     public static void generateViewsAndAttach(DictionaryResponse dicResponse,
                                               LinearLayout container,
@@ -78,8 +82,13 @@ public class DictionaryViewGenerator {
                         String translationText = transl.getText();
                         String gender = transl.getGender();
                         //boolean параметр определяет наличие или отсутствие синонимов
-                        //если синонимов нет - то перевод единственный и запятая не нужна
-                        LinearLayout trItem = getTrContainer(translationText, gender, !areSynonymsAvailable, context);
+
+                        LinearLayout trItem = getTrContainer(
+                                context,
+                                translationText,
+                                gender,
+                                !areSynonymsAvailable); //если синонимов нет - то перевод единственный и запятая не нужна
+
                         trFlowLayout.addView(trItem, params);
 
                         if (areSynonymsAvailable) {
@@ -89,7 +98,11 @@ public class DictionaryViewGenerator {
                                 boolean isLast = (k == synonymList.size() - 1);
                                 //для каждого перевода делаем линеар лэйаут котороый популируем
                                 //внутри флоу лэйаута
-                                LinearLayout synItem = getTrContainer(synonymText, synonymGender, isLast, context);
+                                LinearLayout synItem = getTrContainer(
+                                        context,
+                                        synonymText,
+                                        synonymGender,
+                                        isLast);
                                 trFlowLayout.addView(synItem, params);
                             }
                         }
@@ -256,7 +269,7 @@ public class DictionaryViewGenerator {
         return linearLayout;
     }
 
-    private static LinearLayout getTrContainer(String translation, String gender, boolean isLast, Context context) {
+    private static LinearLayout getTrContainer(Context context, String translation, String gender, boolean isLast) {
 
         LinearLayout trTVcontainer = getHorizontalWrapWrapLL(context);
         TextView trTV = new TextView(context);

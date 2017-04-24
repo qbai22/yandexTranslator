@@ -5,8 +5,8 @@ import retrofit2.Call;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-/**
- * Created by qbai on 15.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public interface TranslationService {

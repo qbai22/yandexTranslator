@@ -7,8 +7,8 @@ import android.util.Log;
 
 import qbai22.com.yandextranslator.model.Language;
 
-/**
- * Created by qbai on 09.04.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class TranslationPreferencesUtils {

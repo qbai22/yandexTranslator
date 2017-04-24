@@ -3,8 +3,8 @@ package qbai22.com.yandextranslator.model.realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by qbai on 15.03.2017.
+/*
+ * Created by Vladimir Kraev
  */
 
 public class Translation extends RealmObject {
@@ -16,7 +16,15 @@ public class Translation extends RealmObject {
     private String translatedText;
     private String fromLangCode;
     private String toLangCode;
+    private long date;
 
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;

@@ -1,8 +1,6 @@
-package qbai22.com.yandextranslator.fragments.bookmarks;
+package qbai22.com.yandextranslator.fragments;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +20,24 @@ import qbai22.com.yandextranslator.R;
 import qbai22.com.yandextranslator.model.realm.Translation;
 import qbai22.com.yandextranslator.utils.RealmTranslationHelper;
 
+/*
+ * Created by Vladimir Kraev
+ */
 
-public class BookmarksRecyclerAdapter
-        extends RealmRecyclerViewAdapter<Translation, BookmarksRecyclerAdapter.WordViewHolder> {
+/*
+Поскольку структура фрагмента истории поиска и фрагмента закладок
+одинаковая, то используется один адаптер
+ */
+
+public class WordRecyclerAdapter
+        extends RealmRecyclerViewAdapter<Translation, WordRecyclerAdapter.WordViewHolder> {
 
     Realm mRealm;
 
-    public BookmarksRecyclerAdapter(@NonNull Context context,
-                                    @Nullable OrderedRealmCollection<Translation> data,
-                                    boolean autoUpdate,
-                                    Realm realm) {
+    public WordRecyclerAdapter(Context context,
+                               OrderedRealmCollection<Translation> data,
+                               boolean autoUpdate,
+                               Realm realm) {
         super(context, data, autoUpdate);
         mRealm = realm;
     }
@@ -42,6 +48,7 @@ public class BookmarksRecyclerAdapter
                 .from(parent.getContext())
                 .inflate(R.layout.item_word, parent, false);
         WordViewHolder bvh = new WordViewHolder(v);
+
         return bvh;
     }
 
@@ -49,9 +56,10 @@ public class BookmarksRecyclerAdapter
     public void onBindViewHolder(WordViewHolder holder, int position) {
         Translation translation = getItem(position);
         assert translation != null;
+
         final String inputText = translation.getInputText();
-        final String translatedText  = translation.getTranslatedText();
-        boolean isBookmarked = translation.isBookmarked();
+        final String translatedText = translation.getTranslatedText();
+        final boolean isBookmarked = translation.isBookmarked();
         String fromLangCode = translation.getFromLangCode().toUpperCase();
         String toLangCode = translation.getToLangCode().toUpperCase();
 
@@ -59,23 +67,23 @@ public class BookmarksRecyclerAdapter
         holder.translatedText.setText(translatedText);
         holder.languagePair.setText(fromLangCode + " - " + toLangCode);
 
+
         holder.bookmarkButton.setChecked(isBookmarked);
-        holder.bookmarkButton.setEventListener(new SparkEventListener() {
+        holder.bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onEvent(ImageView button, boolean buttonState) {
-                if (buttonState) {
-                    RealmTranslationHelper
-                            .changeBookmarkStatus(mRealm, true, inputText, translatedText);
-                } else {
+            public void onClick(View v) {
+                if(isBookmarked){
                     RealmTranslationHelper
                             .changeBookmarkStatus(mRealm, false, inputText, translatedText);
-
+                } else {
+                    RealmTranslationHelper
+                            .changeBookmarkStatus(mRealm, true, inputText, translatedText);
                 }
             }
-            public void onEventAnimationEnd(ImageView button, boolean buttonState) {}
-            public void onEventAnimationStart(ImageView button, boolean buttonState) {}
         });
+
     }
+
 
     public class WordViewHolder extends RealmSearchViewHolder {
 
@@ -93,6 +101,5 @@ public class BookmarksRecyclerAdapter
             ButterKnife.bind(this, itemView);
         }
     }
-
 
 }
