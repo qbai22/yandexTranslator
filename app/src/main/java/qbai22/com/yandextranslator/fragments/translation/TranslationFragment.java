@@ -139,7 +139,8 @@ public class TranslationFragment extends Fragment {
             Handler handler = new Handler();
             Runnable delayedAction;
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -462,7 +463,7 @@ public class TranslationFragment extends Fragment {
 
         if (restart) {
             //если результат не закеширован и нет сети - показываем тоаст
-            if (!NetworkUtils.isNetworkAvailableAndConnected(getActivity())) {
+            if (getActivity() != null && !NetworkUtils.isNetworkAvailableAndConnected(getActivity())) {
                 Toast.makeText(getActivity(), R.string.network_unavailable_toast, Toast.LENGTH_SHORT).show();
                 return;
             }
